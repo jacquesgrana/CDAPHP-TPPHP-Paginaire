@@ -1,5 +1,5 @@
 <?php
-require_once('Kernel/Model.php');
+require_once('Model.php');
 class Book extends Model {
     private int $id;
     private string $title;
@@ -9,6 +9,7 @@ class Book extends Model {
     private string $description;
     protected static $tableName = 'books';
 
+    /*
     public function __construct($id, $title, $author, $type, $image, $description) 
     {
         $this->id = $id;
@@ -17,7 +18,7 @@ class Book extends Model {
         $this->type = $type;
         $this->image = $image;
         $this->description = $description;
-    }
+    }*/
 
     public function getId() {
         return $this->id;

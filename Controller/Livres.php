@@ -9,7 +9,8 @@ class Livres {
         require_once('Entity/Book.php');
         try {
             //$connexion = DBConnector::getConnect();
-            $booksTab = Book::getAll();
+            $books = Book::getAll();
+            /*
             $books = [];
             foreach($booksTab as $tab) {
                 $books[] = new Book(
@@ -20,7 +21,7 @@ class Livres {
                     $tab['image'],
                     $tab['description']
                 );
-            }
+            }*/
             //var_dump($books);
             $book = Book::getById(9785678901234)[0];
         } 

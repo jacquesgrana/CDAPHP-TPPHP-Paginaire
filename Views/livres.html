@@ -3,19 +3,22 @@
     <div class="d-flex justify-content-center flex-wrap div-display gap-2">
     <?php
 
-        echo '<table class="table table-striped table-sm rounded">';
+        echo '<table class="table table-striped table-sm rounded table-hover table-fixed">';
+        echo '<thead>';
         echo '<tr>';
-        echo '<th>Titre</td>';
-        echo '<th>Auteur</th>';
-        echo '<th>Type</th>';
-        echo '<th>Actions</th>';
+        echo '<th class="px-2">Titre</td>';
+        echo '<th class="px-2">Auteur</th>';
+        echo '<th class="px-2">Type</th>';
+        echo '<th class="px-2">Actions</th>';
         echo '</tr>';
+        echo '</thead>';
+        echo '<tbody>';
         foreach ($books as $bk) {
             echo '<tr>';
-            echo '<td class="pt-3">'.$bk->getTitle().'</td>';
-            echo '<td class="pt-3">'.$bk->getAuthor().'</td>';
-            echo '<td class="pt-3">'.$bk->getType().'</td>';
-            echo '<td class="pt-2">';
+            echo '<td class="px-2 pt-3">'.$bk->getTitle().'</td>';
+            echo '<td class="px-2 pt-3">'.$bk->getAuthor().'</td>';
+            echo '<td class="px-2 pt-3">'.$bk->getType().'</td>';
+            echo '<td class="px-2 pt-2">';
             echo '<div class="btn-group">';
             echo '<a href="#" class="btn btn-primary btn-sm">Voir</a>';
             echo '<a href="#" class="btn btn-success btn-sm">Editer</a>';
@@ -24,6 +27,7 @@
             echo '</td>';
             echo '</tr>';
         }
+        echo '</tbody>';
         echo '</table>';
 
 
@@ -63,9 +67,7 @@
     echo '</table>';
 */
     echo '<br>';
-    foreach($book as $key => $value) {
-        echo $key.' : '.$value.' / ';
-    }
+    //var_dump($book);
             ?>
     </div>
 </main>

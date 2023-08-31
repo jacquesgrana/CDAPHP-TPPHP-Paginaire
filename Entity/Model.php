@@ -4,7 +4,7 @@ abstract class Model {
 
     protected static function execute($sql) {
         $pdostatement = DBConnector::getConnect()->query($sql);
-        return $pdostatement->fetchAll(PDO::FETCH_ASSOC);
+        return $pdostatement->fetchAll(PDO::FETCH_CLASS, self::getClassName());
     }
     
     public static function getAll() {
@@ -24,7 +24,12 @@ abstract class Model {
         $stmt = DBConnector::getConnect()->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_CLASS, self::getClassName());
+    }
+
+    private static function getClassName()
+    {
+        return static::class;
     }
 }
 ?>
