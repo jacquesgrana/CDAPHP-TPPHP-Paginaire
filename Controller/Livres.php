@@ -42,16 +42,27 @@ class Livres {
     }
 
     /*
-    public function viewBook() {
-        echo 'controller Livres - fonction viewBook';
-        //$this->modalMode="Voir Livre";
-        $_SESSION['modalMode'] = "Voir Livre";
-        header("Location: " . Config::getEndpoint() . "?page=Livres&method=index");
-        exit;
-    }*/
-
     public function test() {
         echo 'controller Livres - fonction test';
+    }
+    */
+
+    public function update() {
+        // TODO Modifier
+        if (isset($_POST['title']) && isset($_POST['author']) && isset($_POST['type']) && isset($_POST['image']) && isset($_POST['description']) && isset($_GET['id'])) 
+        {
+            $title = $_POST['title'];
+            $author = $_POST['author'];
+            $type = $_POST['type'];
+            $image = $_POST['image'];
+            $description = $_POST['description'];
+            $datas = ["title" => $title, "author" => $author, "type" => $type, "image" => $image, "description" => $description];
+            //var_dump($datas);
+            $id = intval($_GET['id']);
+            //var_dump($id);
+            $ok = Book::update($id, $datas);
+            self::index();
+        }
     }
 }
 ?>

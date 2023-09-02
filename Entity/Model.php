@@ -1,13 +1,16 @@
 <?php
-abstract class Model {
+abstract class Model
+{
     private static $tableName;
 
-    protected static function execute($sql) {
+    protected static function execute($sql)
+    {
         $pdostatement = DBConnector::getConnect()->query($sql);
         return $pdostatement->fetchAll(PDO::FETCH_CLASS, self::getClassName());
     }
-    
-    public static function getAll($limit, $offset) {
+
+    public static function getAll($limit, $offset)
+    {
         $tableName = static::$tableName;
         $sql = "SELECT * FROM $tableName LIMIT :limit OFFSET :offset";
         $stmt = DBConnector::getConnect()->prepare($sql);
@@ -18,12 +21,8 @@ abstract class Model {
         //return static::execute($sql);
     }
 
-    public static function getById($id) {
-        /*
-        $tableName = static::$tableName;
-        $sql = "SELECT * FROM $tableName WHERE id=$id";
-        return static::execute($sql);
-        */
+    public static function getById($id)
+    {
         $tableName = static::$tableName;
         $sql = "SELECT * FROM $tableName WHERE id = :id";
         $stmt = DBConnector::getConnect()->prepare($sql);
@@ -36,5 +35,23 @@ abstract class Model {
     {
         return static::class;
     }
+
+    public static function update(int $id, array $datas)
+    {
+        try {
+            $setClause = [];
+            $db = DBConnector::getConnect();
+            foreach ($datas as $key => $value) {
+                $value = $db->quote($value);
+                $setClause[] = "`$key` = $value";
+            }
+            $setClauseString = implode(', ', $setClause);
+            $tableName = static::$tableName;
+            $sql = "UPDATE " . $tableName . " SET " . $setClauseString . " WHERE id = :id";
+            $stmt = $db->prepare($sql);
+            return $stmt->execute([':id' => $id]);
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
 }
-?>

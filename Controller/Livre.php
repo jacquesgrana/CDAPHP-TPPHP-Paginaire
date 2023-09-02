@@ -21,7 +21,14 @@ class Livre {
                         $this->id = $_GET['id'];
                         $this->book = Book::getById($this->id)[0];
                     }
-                 break;   
+                 break;  
+                 case 'edit' :
+                    $this->actionText = "Modifier un livre";
+                    if(isset($_GET['id'])) {
+                        $this->id = $_GET['id'];
+                        $this->book = Book::getById($this->id)[0];
+                    }
+                 break; 
             }
 
         }
@@ -42,5 +49,22 @@ class Livre {
             'endpoint' => Config::getEndpoint()
         ]);
     }
+/*
+    public function update() {
+        // TODO Modifier
+        if (isset($_POST['title']) && isset($_POST['author']) && isset($_POST['type']) && isset($_POST['image']) && isset($_POST['description']) && isset($_GET['id'])) 
+        {
+            $title = $_POST['title'];
+            $author = $_POST['author'];
+            $type = $_POST['type'];
+            $image = $_POST['image'];
+            $description = $_POST['description'];
+            $datas = ["title" => $title, "author" => $author, "type" => $type, "image" => $image, "description" => $description];
+            $id = intval($_GET['id']);
+            $ok = Book::update($id, $datas);
+            self::index();
+        }
+    }
+    */
 }
 ?>

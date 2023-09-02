@@ -10,8 +10,17 @@
     $isSubmitBtn = false;
     if($action !== 'view') $isSubmitBtn = true; 
 
-
-    echo "<form class='d-flex align-items-center flex-column mt-3' action='/index.php?page=Livres&method=index' method='POST'>";
+    // TODO ajouter action dans query string
+    if($action === 'edit') {
+        echo "<form class='d-flex align-items-center flex-column mt-3' action='/index.php?page=Livres&method=update&id=" . $id . "' method='POST'>";
+    }
+    else if($action === 'create') {
+        echo "<form class='d-flex align-items-center flex-column mt-3' action='/index.php?page=Livres&method=create' method='POST'>";
+    }
+    else if($action === 'view') {
+        echo "<form class='d-flex align-items-center flex-column mt-3' action='' method='POST'>";
+    }
+    
     echo "<div class='input-group mb-3 mt-3'>"; 
     echo "<label class='input-group-text' style='width: 120px;' for='isbn'>Isbn</label>";
     echo "<input class='form-control' style='width: 380px;' placeholder='Saisir un code Isbn' type='text' name='isbn' id='isbn' value ='" . (($id !== null) ? $id : '') . "' " . (($action === 'view') ? 'disabled="disabled"' : '') .">";
