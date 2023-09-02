@@ -1,5 +1,5 @@
 <?php
-include_once('../Config/Config.php');
+include_once('./Config/Config.php');
 
 class DBConnector extends PDO {
     //private static $dsn = Config::DSN; //"mysql:host=localhost:3306;dbname=Test01;charset=utf8mb4";

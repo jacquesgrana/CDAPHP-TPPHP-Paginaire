@@ -9,6 +9,7 @@ class Livres {
     private int $limit = 10;
     private int $offset = 0;
     private int $page = 0;
+    private int $maxPage = 0;
     //private ?int $bookNb = null;
 
     //private string $modalMode = "nothing";
@@ -34,7 +35,8 @@ class Livres {
             if(isset($_SESSION['bookNb'])) {
                 $nb = $_SESSION['bookNb'];
                 $maxPage = $nb / $this->limit;
-                if($this->page > $maxPage) $this->page = intval($maxPage);
+                $this->maxPage = $maxPage;
+                if($this->page > $maxPage) $this->page = intval($this->maxPage);
             }
             $this->offset = $this->limit * $this->page;
             $_SESSION['page'] = $this->page;
@@ -46,6 +48,9 @@ class Livres {
         try {
             $books = Book::getAll($this->limit, $this->offset);
             $_SESSION['bookNb'] = count(Book::getAll(2147483647,0));
+            $nb = $_SESSION['bookNb'];
+            $_SESSION['maxPage'] = intval($nb / $this->limit);
+            $_SESSION['page'] = $this->page;
             //var_dump($books);
             //$book = Book::getById(9785678901234)[0];
         } 
@@ -66,8 +71,8 @@ class Livres {
             'textHeader' => 'Page des livres',
             'pageName' => 'Paginaire - Livres',
             'books' => $books,
-            //'modalMode' => $this->modalMode,
-            //'book' => $book,
+            'page' => $_SESSION['page'],
+            'maxPage' => $_SESSION['maxPage'],
             'endpoint' => Config::getEndpoint()
         ]);
     }

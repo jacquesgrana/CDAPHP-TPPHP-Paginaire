@@ -46,10 +46,10 @@
     echo "<textarea class='form-control' style='height: 80px;' placeholder='Saisir une description' name='description' id='description' " . (($action === 'view') ? 'disabled="disabled"' : '') .">" . (($action !== "create") ? $book->getDescription() : '') . "</textarea>";
     echo'</div>';
     echo "<div class='d-flex justify-content-center gap-2 mb-1 mt-3'>";
+    echo "<button class='btn btn-primary btn-sm' formaction='/index.php?page=Livres&method=index'>&#10226; Retour</button>";
     if($isSubmitBtn) { 
-        echo "<button class='btn btn-success btn-sm' type='submit'>Valider</button>";
+        echo "<button class='btn btn-success btn-sm' type='submit'>&#10004;Valider</button>";
     }
-    echo "<button class='btn btn-primary btn-sm' formaction='/index.php?page=Livres&method=index'>Retour</button>";
     echo'</div>';
     echo "</form>";
     ?>
