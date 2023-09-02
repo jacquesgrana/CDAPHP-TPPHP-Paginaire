@@ -1,30 +1,22 @@
 <?php
+require_once('Kernel/View.php');
+require_once('Config/Config.php');
+require_once('Kernel/DBConnector.php');
+require_once('Entity/Book.php');
+
 class Livres {
 
-    private int $limit = 10;
+    private int $limit = 12;
     private int $offset = 0;
 
+    //private string $modalMode = "nothing";
+
     public function index() {
+        //$_SESSION['modalMode'] = "nothing";
         //echo 'controller Index - fonction index';
-        require_once('Kernel/View.php');
-        require_once('Config/Config.php');
-        require_once('Kernel/DBConnector.php');
-        require_once('Entity/Book.php');
+        
         try {
-            //$connexion = DBConnector::getConnect();
             $books = Book::getAll($this->limit, $this->offset);
-            /*
-            $books = [];
-            foreach($booksTab as $tab) {
-                $books[] = new Book(
-                    $tab['id'],
-                    $tab['title'],
-                    $tab['author'],
-                    $tab['type'],
-                    $tab['image'],
-                    $tab['description']
-                );
-            }*/
             //var_dump($books);
             //$book = Book::getById(9785678901234)[0];
         } 
@@ -43,23 +35,21 @@ class Livres {
             'textHeader' => 'Page des livres',
             'pageName' => 'Paginaire - Livres',
             'books' => $books,
+            //'modalMode' => $this->modalMode,
             //'book' => $book,
             'endpoint' => Config::getEndpoint()
         ]);
     }
-/*
-    public static function getAll()
-    {
-        $sql = "select * from books";
-        return self::Execute($sql);
-    }
 
-    private static function Execute($sql)
-    {
-        $pdostatement = DBConnector::getConnect()->query($sql);
-        return $pdostatement->fetchAll(\PDO::FETCH_DEFAULT);
-    }
-*/
+    /*
+    public function viewBook() {
+        echo 'controller Livres - fonction viewBook';
+        //$this->modalMode="Voir Livre";
+        $_SESSION['modalMode'] = "Voir Livre";
+        header("Location: " . Config::getEndpoint() . "?page=Livres&method=index");
+        exit;
+    }*/
+
     public function test() {
         echo 'controller Livres - fonction test';
     }

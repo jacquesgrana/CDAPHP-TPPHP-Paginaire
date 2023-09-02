@@ -1,9 +1,9 @@
 <main class="d-flex flex-column justify-content-center align-items-center">
-    <h3 class="text-center mt-4 mb-2">Liste des livres</h3>
+    <h3 class="text-center mt-5 mb-2">Liste des livres</h3>
     <div class="d-flex justify-content-center flex-wrap div-display gap-2">
     <?php
 
-        echo '<table class="table table-striped table-sm rounded table-hover">';
+        echo '<table class="table table-striped table-sm rounded table-hover mt-3 mb-2">';
         echo '<thead>';
         echo '<tr>';
         echo '<th class="px-2">Titre</td>';
@@ -20,9 +20,9 @@
             echo '<td class="px-2 pt-3">'.$bk->getType().'</td>';
             echo '<td class="px-2 pt-2">';
             echo '<div class="btn-group">';
-            echo '<a href="#" class="btn btn-primary btn-sm">Voir</a>';
-            echo '<a href="#" class="btn btn-success btn-sm">Editer</a>';
-            echo '<a href="#" class="btn btn-danger btn-sm">Supprimer</a>';
+            echo "<a href='" . $endpoint . "?page=Livre&method=index&action=view&id=" . $bk->getId() . "' class='btn btn-primary btn-sm'>Voir</a>";
+            echo "<a href='#' class='btn btn-success btn-sm'>Editer</a>";
+            echo "<a href='#' class='btn btn-danger btn-sm'>Supprimer</a>";
             echo '</div>';
             echo '</td>';
             echo '</tr>';
