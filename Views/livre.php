@@ -23,7 +23,7 @@
     
     echo "<div class='input-group mb-3 mt-3'>"; 
     echo "<label class='input-group-text' style='width: 120px;' for='isbn'>Isbn</label>";
-    echo "<input class='form-control' style='width: 380px;' placeholder='Saisir un code Isbn' type='text' name='isbn' id='isbn' value ='" . (($id !== null) ? $id : '') . "' " . (($action === 'view') ? 'disabled="disabled"' : '') .">";
+    echo "<input class='form-control' style='width: 380px;' placeholder='Saisir un code Isbn' type='text' name='isbn' id='isbn' value ='" . (($id !== null) ? $id : '') . "' " . (($action !== 'create') ? 'disabled="disabled"' : '') .">";
     echo'</div>';
     echo "<div class='input-group mb-3 mt-3'>"; 
     echo "<label class='input-group-text' style='width: 120px;' for='title'>Titre</label>";
@@ -39,7 +39,7 @@
     echo'</div>';
     echo "<div class='input-group mb-3 mt-3'>"; 
     echo "<label class='input-group-text' style='width: 120px;' for='image'>Image</label>";
-    echo "<input class='form-control' placeholder='Saisir un nom d\'image' type='text' name='image' id='image' value ='" . (($action !== "create") ? $book->getImage() : '') . "' " . (($action === 'view') ? 'disabled="disabled"' : '') .">";
+    echo "<input class='form-control' placeholder=\"Saisir un nom d'image\" type='text' name='image' id='image' value ='" . (($action !== "create") ? $book->getImage() : '') . "' " . (($action === 'view') ? 'disabled="disabled"' : '') .">";
     echo'</div>';
     echo "<div class='input-group mb-3 mt-3'>";
     echo "<label class='input-group-text' style='width: 120px;' for='description'>Description</label>";
@@ -54,3 +54,11 @@
     echo "</form>";
     ?>
 </main>
+<script type="text/javascript">
+    window.onload = function() {
+        var submitButton = document.querySelector("button[type='submit']");
+        submitButton.onclick = function() {
+            return confirm("Voulez-vous vraiment envoyer le formulaire ?");
+        }
+    }
+</script>

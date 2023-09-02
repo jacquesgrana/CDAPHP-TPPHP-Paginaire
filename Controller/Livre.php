@@ -37,7 +37,7 @@ class Livre {
         $view = new View();
         $view->setHead('head.html');
         $view->setHeader('header.html');
-        $view->setMain('livre.html');
+        $view->setMain('livre.php');
         $view->setFooter('footer.html');
         $view->render([
             'textHeader' => 'Page d\'un livre',

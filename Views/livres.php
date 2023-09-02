@@ -1,6 +1,6 @@
 <main class="d-flex flex-column justify-content-center align-items-center">
     <h3 class="text-center mt-5 mb-2">Liste des livres</h3>
-    <div class="d-flex justify-content-center flex-wrap div-display gap-2">
+    <div class="table-responsive">
     <?php
 
         echo '<table class="table table-striped table-sm rounded table-hover mt-3 mb-2">';
@@ -29,6 +29,12 @@
         }
         echo '</tbody>';
         echo '</table>';
+        echo '<div class="d-flex justify-content-between">';
+        echo '<a href="./?page=Livres&method=index&action=previous" class="btn btn-primary btn-sm mt-3 mb-1">Page précédente</a>';
+        echo "<a href='" . $endpoint . "?page=Livre&method=index&action=create' class='btn btn-primary btn-sm mt-3 mb-1'>Ajouter</a>";
+        echo '<a href="./?page=Livres&method=index&action=next" class="btn btn-primary btn-sm mt-3 mb-1">Page suivante</a>';
+        echo '</div>';
+
     ?>
     </div>
 </main>

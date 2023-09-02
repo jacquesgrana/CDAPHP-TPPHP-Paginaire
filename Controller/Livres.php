@@ -6,30 +6,61 @@ require_once('Entity/Book.php');
 
 class Livres {
 
-    private int $limit = 12;
+    private int $limit = 10;
     private int $offset = 0;
+    private int $page = 0;
+    //private ?int $bookNb = null;
 
     //private string $modalMode = "nothing";
 
     public function index() {
-        //$_SESSION['modalMode'] = "nothing";
-        //echo 'controller Index - fonction index';
+        // TODO faire requete pour avoir le nombre de livres pour determiner le nombre max de pages
+        if(isset($_GET['action'])) {
+            $action = $_GET['action'];
+            switch ($action) {
+                case 'previous':
+                    $_SESSION['page'] = isset($_SESSION['page']) ? $_SESSION['page'] - 1 : 0;
+                    break;
+                case 'next':
+                    $_SESSION['page'] = isset($_SESSION['page']) ? $_SESSION['page'] + 1 : 0;
+                    break;
+                default:
+                    // Gérer les autres cas si nécessaire
+                    break;
+            }
+            if(isset($_SESSION['page'])) $this->page = $_SESSION['page'];
+            if($this->page < 0) $this->page = 0;
+            // TODO caper page pour le max
+            if(isset($_SESSION['bookNb'])) {
+                $nb = $_SESSION['bookNb'];
+                $maxPage = $nb / $this->limit;
+                if($this->page > $maxPage) $this->page = intval($maxPage);
+            }
+            $this->offset = $this->limit * $this->page;
+            $_SESSION['page'] = $this->page;
+            //var_dump($this->page);
+            //var_dump($_SESSION['bookNb']);
+            //var_dump($this->offset);
+        }
         
         try {
             $books = Book::getAll($this->limit, $this->offset);
+            $_SESSION['bookNb'] = count(Book::getAll(2147483647,0));
             //var_dump($books);
             //$book = Book::getById(9785678901234)[0];
         } 
         catch(\PDOException $e) {
             die($e->getMessage());
         }
+
+        
         
         //var_dump($connexion);
         
         $view = new View();
         $view->setHead('head.html');
         $view->setHeader('header.html');
-        $view->setMain('livres.html');
+        $view->setMain('livres.php');
         $view->setFooter('footer.html');
         $view->render([
             'textHeader' => 'Page des livres',
