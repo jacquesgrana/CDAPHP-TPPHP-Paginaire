@@ -11,24 +11,32 @@ abstract class Model
 
     public static function getAll($limit, $offset)
     {
-        $tableName = static::$tableName;
-        $sql = "SELECT * FROM $tableName LIMIT :limit OFFSET :offset";
-        $stmt = DBConnector::getConnect()->prepare($sql);
-        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_CLASS, self::getClassName());
-        //return static::execute($sql);
+        try {
+            $tableName = static::$tableName;
+            $sql = "SELECT * FROM $tableName LIMIT :limit OFFSET :offset";
+            $stmt = DBConnector::getConnect()->prepare($sql);
+            $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+            $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_CLASS, self::getClassName());
+            //return static::execute($sql);
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
     }
 
     public static function getById($id)
     {
-        $tableName = static::$tableName;
-        $sql = "SELECT * FROM $tableName WHERE id = :id";
-        $stmt = DBConnector::getConnect()->prepare($sql);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_CLASS, self::getClassName());
+        try {
+            $tableName = static::$tableName;
+            $sql = "SELECT * FROM $tableName WHERE id = :id";
+            $stmt = DBConnector::getConnect()->prepare($sql);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_CLASS, self::getClassName());
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
     }
 
     private static function getClassName()
@@ -53,5 +61,37 @@ abstract class Model
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
+    }
+
+    public static function insert(array $datas)
+    {
+        try {
+            $setClause = [];
+            $db = DBConnector::getConnect();
+            foreach ($datas as $value) {
+                if (is_int($value)) {
+                    $setClause[] = "$value";
+                } else {
+                    $value = $db->quote($value);
+                    $setClause[] = "$value";
+                }
+            }
+            $setClauseString = implode(', ', $setClause);
+            $tableName = static::$tableName;
+            $sql = "INSERT INTO " . $tableName . " VALUES (" . $setClauseString . ")";
+            //var_dump($sql);
+            $stmt = $db->prepare($sql);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public static function delete(int $id) {
+        $tableName = static::$tableName;
+        $sql = "DELETE FROM ".$tableName." WHERE id=:id";
+        $stmt = DBConnector::getConnect()->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
     }
 }

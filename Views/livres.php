@@ -22,7 +22,7 @@
             echo '<div class="btn-group">';
             echo "<a href='" . $endpoint . "?page=Livre&method=index&action=view&id=" . $bk->getId() . "' class='btn btn-primary btn-sm'>Voir</a>";
             echo "<a href='" . $endpoint . "?page=Livre&method=index&action=edit&id=" . $bk->getId() . "' class='btn btn-success btn-sm'>Editer</a>";
-            echo "<a href='#' class='btn btn-danger btn-sm'>Supprimer</a>";
+            echo "<a href='<" . $endpoint . "?page=Livres&method=delete&id=" . $bk->getId() . "' onclick='return confirm(\"Voulez-vous supprimer ce livre ?\")' class='btn btn-danger btn-sm'>Supprimer</a>";
             echo '</div>';
             echo '</td>';
             echo '</tr>';

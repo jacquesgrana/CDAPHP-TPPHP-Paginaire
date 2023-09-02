@@ -79,7 +79,6 @@ class Livres {
     */
 
     public function update() {
-        // TODO Modifier
         if (isset($_POST['title']) && isset($_POST['author']) && isset($_POST['type']) && isset($_POST['image']) && isset($_POST['description']) && isset($_GET['id'])) 
         {
             $title = $_POST['title'];
@@ -92,6 +91,30 @@ class Livres {
             $id = intval($_GET['id']);
             //var_dump($id);
             $ok = Book::update($id, $datas);
+            self::index();
+        }
+    }
+
+    public function create() {
+        if (isset($_POST['title']) && isset($_POST['author']) && isset($_POST['type']) && isset($_POST['image']) && isset($_POST['description']) && isset($_POST['isbn'])) 
+        {
+            $id = intval($_POST['isbn']);
+            $title = $_POST['title'];
+            $author = $_POST['author'];
+            $type = $_POST['type'];
+            $image = $_POST['image'];
+            $description = $_POST['description'];
+            $datas = ["id" => $id, "title" => $title, "author" => $author, "type" => $type, "image" => $image, "description" => $description];
+            $ok = Book::insert($datas);
+            self::index();
+        }
+    }
+
+    public function delete() {
+        if (isset($_GET['id'])) // && isset($_GET['confirm'])
+        {
+            $id = intval($_GET['id']);
+            $sok = Book::delete($id);
             self::index();
         }
     }
