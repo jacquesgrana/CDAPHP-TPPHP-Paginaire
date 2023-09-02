@@ -1,6 +1,9 @@
 <?php
 class Livres {
 
+    private int $limit = 10;
+    private int $offset = 0;
+
     public function index() {
         //echo 'controller Index - fonction index';
         require_once('Kernel/View.php');
@@ -9,7 +12,7 @@ class Livres {
         require_once('Entity/Book.php');
         try {
             //$connexion = DBConnector::getConnect();
-            $books = Book::getAll();
+            $books = Book::getAll($this->limit, $this->offset);
             /*
             $books = [];
             foreach($booksTab as $tab) {
@@ -23,7 +26,7 @@ class Livres {
                 );
             }*/
             //var_dump($books);
-            $book = Book::getById(9785678901234)[0];
+            //$book = Book::getById(9785678901234)[0];
         } 
         catch(\PDOException $e) {
             die($e->getMessage());
@@ -40,7 +43,7 @@ class Livres {
             'textHeader' => 'Page des livres',
             'pageName' => 'Paginaire - Livres',
             'books' => $books,
-            'book' => $book,
+            //'book' => $book,
             'endpoint' => Config::getEndpoint()
         ]);
     }

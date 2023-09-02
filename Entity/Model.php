@@ -7,10 +7,15 @@ abstract class Model {
         return $pdostatement->fetchAll(PDO::FETCH_CLASS, self::getClassName());
     }
     
-    public static function getAll() {
+    public static function getAll($limit, $offset) {
         $tableName = static::$tableName;
-        $sql = "SELECT * FROM $tableName";
-        return static::execute($sql);
+        $sql = "SELECT * FROM $tableName LIMIT :limit OFFSET :offset";
+        $stmt = DBConnector::getConnect()->prepare($sql);
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_CLASS, self::getClassName());
+        //return static::execute($sql);
     }
 
     public static function getById($id) {
