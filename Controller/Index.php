@@ -11,15 +11,11 @@ class Index {
         $view->setMain('index.html');
         $view->setFooter('footer.html');
         $view->render([
-            'textHeader' => 'Page d\'Accueil',
+            'textHeader' => 'Page d\'accueil',
             'pageName' => 'Paginaire - Accueil',
-            'var' => 'page index',
+            'title' => 'Accueil',
             'endpoint' => Config::getEndpoint()
         ]);
-    }
-
-    public function test() {
-        echo 'controller Index - fonction test';
     }
 }
 ?>

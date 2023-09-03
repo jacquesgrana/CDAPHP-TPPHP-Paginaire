@@ -5,7 +5,7 @@ require_once('Kernel/DBConnector.php');
 require_once('Entity/Book.php');
 
 class Livre {
-    private string $actionText = "default";
+    private string $actionText = "Créer un livre";
     private string $action = "default";
     private ?int $id = null;
     private ?Book $book = null;
