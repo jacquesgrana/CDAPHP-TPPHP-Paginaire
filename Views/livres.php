@@ -4,7 +4,7 @@
         <?php
         $firstpage = (($page === 0) ? true : false);
         $lastpage = (($page === $maxPage) ? true : false);
-        echo '<table class="table table-striped table-sm rounded table-hover mt-3 mb-2">';
+        echo '<table class="table table-striped table-sm rounded table-hover mt-3 mb-0">';
         echo '<thead>';
         echo '<tr>';
         echo '<th class="px-2">Titre</td>';
