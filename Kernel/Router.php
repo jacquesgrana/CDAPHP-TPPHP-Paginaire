@@ -44,6 +44,7 @@ class Router
      */
     public function doRoute()
     {
+        include_once $this->controller;
         $method = $this->method;
         $className = basename($this->controller, '.php');
         $controller = new $className;
