@@ -1,6 +1,6 @@
 # TP PHP PDO Paginaire
 TP en PHP : utilisation de PDO pour faire un CRUD
-avec l'utilisation d'un 'micro-framework' en PHP 8.1.2 et de Bootstrap 5.3.1
+en utilisant un 'micro-framework' en PHP 8.1.2 et Bootstrap 5.3.1
 
 ### Configuration :
 #### Pour la base de données (MariaDB) : 
