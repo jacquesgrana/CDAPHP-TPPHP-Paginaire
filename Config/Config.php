@@ -7,7 +7,7 @@ class Config {
     public const DB = 'paginaire';
     public const USER = 'diginamic';
     public const PASS = 'diginamic';
-    public const DSN = 'mysql:dbname='.self::DB.';host=localhost:3306;charset=utf8mb4';
+    public const DSN = 'mysql:dbname='.self::DB.';host=localhost;charset=utf8mb4';
 
     public static function getEndpoint()
     {
