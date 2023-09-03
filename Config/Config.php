@@ -1,4 +1,7 @@
 <?php
+/**
+ * Classe de configuation
+ */
 class Config {
     //private static $dsn = "mysql:host=localhost:3306;dbname=Test01;charset=utf8mb4";
     public const DB = 'paginaire';

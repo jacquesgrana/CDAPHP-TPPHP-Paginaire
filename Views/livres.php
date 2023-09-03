@@ -34,16 +34,8 @@
         echo '<button type="button" class="btn btn-primary btn-sm mt-3 mb-1" onclick="window.location.href=\'./?page=Livres&method=index&action=previous\'"'. ($firstpage ? "disabled=\'disabled\'" : "") .'>◀ Page - </button>';
         echo '<button type="button" class="btn btn-success btn-sm mt-3 mb-1" onclick="window.location.href=\'./?page=Livre&method=index&action=create\'">&#43; Ajouter</button>';
         echo '<button type="button" class="btn btn-primary btn-sm mt-3 mb-1" onclick="window.location.href=\'./?page=Livres&method=index&action=next\'"'. ($lastpage ? "disabled=\'disabled\'" : "") .'>Page + ▶</button>';
-
-
-        /*
-        echo '<a href="./?page=Livres&method=index&action=previous" class="btn btn-primary btn-sm mt-3 mb-1">◀ Page - </a>';
-        echo "<a href='./?page=Livre&method=index&action=create' class='btn btn-success btn-sm mt-3 mb-1'>&#43; Ajouter</a>";
-        echo '<a href="./?page=Livres&method=index&action=next" class="btn btn-primary btn-sm mt-3 mb-1" >Page + ▶</a>';
-        */
         echo '</div>';
-        echo '<p class="text-center">Page ' . ($page + 1) . ' / ' . ($maxPage + 1) . '</p>'
-
+        echo '<p class="text-center">Page ' . ($page + 1) . ' / ' . ($maxPage + 1) . '</p>';
         ?>
     </div>
 </main>

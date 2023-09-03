@@ -1,4 +1,9 @@
 <?php
+ /**
+  * Classe du routeur qui selon la querystring appelle le contrôleur
+  * correspondant et appelle (ou non) la méthode passée (ou non) 
+  * en paramètre.
+  */
 class Router {
     private $controller;
     private $method;
@@ -30,12 +35,14 @@ class Router {
         }
     }
 
-    public function Dispatch() {
+    /**
+     * Fonction qui instancie le contrôleur et appelle la méthode.
+     */
+    public function doRoute() {
         include_once $this->controller;
         $method = $this->method;
         $className = basename($this->controller, '.php');
-        $cont = new $className;
-        $cont->$method();
+        $controller = new $className;
+        $controller->$method();
     }
 }
-?>

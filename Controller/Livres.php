@@ -4,18 +4,21 @@ require_once('Config/Config.php');
 require_once('Kernel/DBConnector.php');
 require_once('Entity/Book.php');
 
+/**
+ * Contrôleur de la page d'affichage des livres.
+ */
 class Livres {
 
     private int $limit = 10;
     private int $offset = 0;
     private int $page = 0;
     private int $maxPage = 0;
-    //private ?int $bookNb = null;
 
-    //private string $modalMode = "nothing";
-
+    /**
+     * Fonction principale qui gère les requêtes et qui construit 
+     * puis affiche la vue.
+     */
     public function index() {
-        // TODO faire requete pour avoir le nombre de livres pour determiner le nombre max de pages
         if(isset($_GET['action'])) {
             $action = $_GET['action'];
             switch ($action) {
@@ -26,12 +29,10 @@ class Livres {
                     $_SESSION['page'] = isset($_SESSION['page']) ? $_SESSION['page'] + 1 : 0;
                     break;
                 default:
-                    // Gérer les autres cas si nécessaire
                     break;
             }
             if(isset($_SESSION['page'])) $this->page = $_SESSION['page'];
             if($this->page < 0) $this->page = 0;
-            // TODO caper page pour le max
             if(isset($_SESSION['bookNb'])) {
                 $nb = $_SESSION['bookNb'];
                 $maxPage = $nb / $this->limit;
@@ -40,9 +41,6 @@ class Livres {
             }
             $this->offset = $this->limit * $this->page;
             $_SESSION['page'] = $this->page;
-            //var_dump($this->page);
-            //var_dump($_SESSION['bookNb']);
-            //var_dump($this->offset);
         }
         
         try {
@@ -51,17 +49,10 @@ class Livres {
             $nb = $_SESSION['bookNb'];
             $_SESSION['maxPage'] = intval($nb / $this->limit);
             $_SESSION['page'] = $this->page;
-            //var_dump($books);
-            //$book = Book::getById(9785678901234)[0];
         } 
         catch(\PDOException $e) {
             die($e->getMessage());
         }
-
-        
-        
-        //var_dump($connexion);
-        
         $view = new View();
         $view->setHead('head.html');
         $view->setHeader('header.html');
@@ -77,12 +68,9 @@ class Livres {
         ]);
     }
 
-    /*
-    public function test() {
-        echo 'controller Livres - fonction test';
-    }
-    */
-
+    /**
+     * Fonction qui met à jour un livre dans le bdd.
+     */
     public function update() {
         if (isset($_POST['title']) && isset($_POST['author']) && isset($_POST['type']) && isset($_POST['image']) && isset($_POST['description']) && isset($_GET['id'])) 
         {
@@ -92,14 +80,15 @@ class Livres {
             $image = $_POST['image'];
             $description = $_POST['description'];
             $datas = ["title" => $title, "author" => $author, "type" => $type, "image" => $image, "description" => $description];
-            //var_dump($datas);
             $id = intval($_GET['id']);
-            //var_dump($id);
             $ok = Book::update($id, $datas);
             self::index();
         }
     }
 
+    /**
+     * Fonction qui créé et insère un livre dans la bdd.
+     */
     public function create() {
         if (isset($_POST['title']) && isset($_POST['author']) && isset($_POST['type']) && isset($_POST['image']) && isset($_POST['description']) && isset($_POST['isbn'])) 
         {
@@ -115,8 +104,11 @@ class Livres {
         }
     }
 
+    /**
+     * Fonction qui efface un livre de la bdd.
+     */
     public function delete() {
-        if (isset($_GET['id'])) // && isset($_GET['confirm'])
+        if (isset($_GET['id']))
         {
             $id = intval($_GET['id']);
             $sok = Book::delete($id);

@@ -1,15 +1,20 @@
 <?php
+
+/**
+ * Classe abstraite qui est héritée par les entités liées à la bdd.
+ */
 abstract class Model
 {
     private static $tableName;
 
-    protected static function execute($sql)
-    {
-        $pdostatement = DBConnector::getConnect()->query($sql);
-        return $pdostatement->fetchAll(PDO::FETCH_CLASS, self::getClassName());
-    }
-
-    public static function getAll($limit, $offset)
+    /**
+     * Fonction qui renvoie un tableau d'objets contenant la liste 
+     * des objets de la table. 
+     * @Param : $limit : nombre d'enregistrements à renvoyer.
+     * @Param : $offset : rang de départ(-1) à partir duquel on
+     * doit renvoyer les objets.      
+     * */
+    public static function getAll(int $limit, int $offset)
     {
         try {
             $tableName = static::$tableName;
@@ -19,13 +24,17 @@ abstract class Model
             $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_CLASS, self::getClassName());
-            //return static::execute($sql);
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
     }
 
-    public static function getById($id)
+    /**
+     * Fonction qui renvoie un tableau d'objets contenant un objet selon
+     * son id.
+     * @Param : $id : id de l'objet à renvoyer.
+     */
+    public static function getById(int $id)
     {
         try {
             $tableName = static::$tableName;
@@ -39,11 +48,20 @@ abstract class Model
         }
     }
 
+    /**
+     * Fonction qui renvoit le nom de la classe.
+     */
     private static function getClassName()
     {
         return static::class;
     }
 
+    /**
+     * Fonction qui exécute la mise à jour d'un livre en bdd selon son id.
+     * @Param : $id : id de l'objet à mettre à jour.
+     * @Param : $datas : tableau associatif contenant les données de 
+     * l'objet à mettre à jour.
+     */
     public static function update(int $id, array $datas)
     {
         try {
@@ -63,6 +81,11 @@ abstract class Model
         }
     }
 
+    /**
+     * Fonction qui exécute l'insertion d'un livre en bdd.
+     * @Param : $datas : tableau associatif contenant les données de 
+     * l'objet à insérer.
+     */
     public static function insert(array $datas)
     {
         try {
@@ -79,7 +102,6 @@ abstract class Model
             $setClauseString = implode(', ', $setClause);
             $tableName = static::$tableName;
             $sql = "INSERT INTO " . $tableName . " VALUES (" . $setClauseString . ")";
-            //var_dump($sql);
             $stmt = $db->prepare($sql);
             return $stmt->execute();
         } catch (PDOException $e) {
@@ -87,6 +109,10 @@ abstract class Model
         }
     }
 
+    /**
+     * Fonction qui supprimer un objet de la bdd selon son id.
+     * @Param : $id : id de l'objet à supprimer.
+     */
     public static function delete(int $id) {
         $tableName = static::$tableName;
         $sql = "DELETE FROM ".$tableName." WHERE id=:id";

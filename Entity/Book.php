@@ -1,5 +1,9 @@
 <?php
 require_once('Model.php');
+
+/**
+ * Classe de l'entité 'Book' qui représente un livre de la bdd.
+ */
 class Book extends Model {
     private int $id;
     private string $title;
@@ -9,17 +13,9 @@ class Book extends Model {
     private string $description;
     protected static $tableName = 'books';
 
-    /*
-    public function __construct($id, $title, $author, $type, $image, $description) 
-    {
-        $this->id = $id;
-        $this->title = $title;
-        $this->author = $author;
-        $this->type = $type;
-        $this->image = $image;
-        $this->description = $description;
-    }*/
-
+    /**
+     * Getters et Setters.
+     */
     public function getId() {
         return $this->id;
     }

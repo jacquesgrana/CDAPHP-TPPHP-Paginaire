@@ -4,14 +4,20 @@ require_once('Config/Config.php');
 require_once('Kernel/DBConnector.php');
 require_once('Entity/Book.php');
 
+/**
+ * Contrôleur de la page de consultation/édition/création d'un livre.
+ */
 class Livre {
     private string $actionText = "Créer un livre";
     private string $action = "default";
     private ?int $id = null;
     private ?Book $book = null;
 
+    /**
+     * Fonction principale qui gère les requêtes et qui construit puis 
+     * affiche la vue.
+     */
     public function index() {
-
         if(isset($_GET['action'])) {
             $this->action = $_GET['action'];
             switch ($this->action) {
@@ -30,9 +36,7 @@ class Livre {
                     }
                  break; 
             }
-
         }
-
 
         $view = new View();
         $view->setHead('head.html');
@@ -49,22 +53,5 @@ class Livre {
             'endpoint' => Config::getEndpoint()
         ]);
     }
-/*
-    public function update() {
-        // TODO Modifier
-        if (isset($_POST['title']) && isset($_POST['author']) && isset($_POST['type']) && isset($_POST['image']) && isset($_POST['description']) && isset($_GET['id'])) 
-        {
-            $title = $_POST['title'];
-            $author = $_POST['author'];
-            $type = $_POST['type'];
-            $image = $_POST['image'];
-            $description = $_POST['description'];
-            $datas = ["title" => $title, "author" => $author, "type" => $type, "image" => $image, "description" => $description];
-            $id = intval($_GET['id']);
-            $ok = Book::update($id, $datas);
-            self::index();
-        }
-    }
-    */
 }
 ?>

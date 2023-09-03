@@ -2,15 +2,9 @@
 
     <h3 class="text-center mt-5 mb-2"><?= $actionText ?></h3>
     <?php 
-    /*
-    if($id !== null) {
-        echo '<p>' . $id . '</p>';
-    }
-    */
     $isSubmitBtn = false;
     if($action !== 'view') $isSubmitBtn = true; 
 
-    // TODO ajouter action dans query string
     if($action === 'edit') {
         echo "<form class='d-flex align-items-center flex-column mt-3' action='/index.php?page=Livres&method=update&id=" . $id . "' method='POST'>";
     }

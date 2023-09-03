@@ -1,10 +1,17 @@
 <?php
+require_once('Kernel/View.php');
+require_once('Config/Config.php');
+
+/**
+ * Contrôleur de la page d'accueil.
+ */
 class Index {
 
-    public function index() {
-        //echo 'controller Index - fonction index';
-        require_once('Kernel/View.php');
-        require_once('Config/Config.php');
+    /**
+     * Fonction principale qui gère les requêtes et qui construit puis 
+     * affiche la vue.
+     */
+    public function index() { 
         $view = new View();
         $view->setHead('head.html');
         $view->setHeader('header.html');
