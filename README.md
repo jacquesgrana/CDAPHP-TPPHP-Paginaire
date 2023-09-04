@@ -15,3 +15,7 @@ Dans un terminal ouvert à la racine du projet :
 ```bash
 php -S localhost:3000
 ```
+
+### Projet hébergé :
+
+[lien vers le projet en ligne](https://cdaphp-tpphp-pdo.000webhostapp.com/)
